@@ -1,0 +1,233 @@
+% Template from https://www.sharelatex.com/templates/journals/aps
+%
+% ****** Start of file apssamp.tex ******
+%
+%   This file is part of the APS files in the REVTeX 4.1 distribution.
+%   Version 4.1r of REVTeX, August 2010
+%
+%   Copyright (c) 2009, 2010 The American Physical Society.
+%
+%   See the REVTeX 4 README file for restrictions and more information.
+%
+% TeX'ing this file requires that you have AMS-LaTeX 2.0 installed
+% as well as the rest of the prerequisites for REVTeX 4.1
+%
+% See the REVTeX 4 README file
+% It also requires running BibTeX. The commands are as follows:
+%
+%  1)  latex apssamp.tex
+%  2)  bibtex apssamp
+%  3)  latex apssamp.tex
+%  4)  latex apssamp.tex
+%
+\documentclass[%
+ reprint,
+%superscriptaddress,
+%groupedaddress,
+%unsortedaddress,
+%runinaddress,
+%frontmatterverbose, 
+%preprint,
+%showpacs,preprintnumbers,
+%nofootinbib,
+%nobibnotes,
+%bibnotes,
+ amsmath,amssymb,
+ aps,
+%pra,
+%prb,
+%rmp,
+%prstab,
+%prstper,
+%floatfix,
+]{revtex4-1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% dexy/pygments source code highlighting requirements %
+\usepackage{xcolor}
+\usepackage{fancyvrb}
+
+% stylesheet for source code, generate using e.g. styles.sh
+\usepackage{pastie} 
+
+\usepackage{hyperref}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usepackage{graphicx}% Include figure files
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+%\usepackage{hyperref}% add hypertext capabilities
+%\usepackage[mathlines]{lineno}% Enable numbering of text and display math
+%\linenumbers\relax % Commence numbering lines
+
+%\usepackage[showframe,%Uncomment any one of the following lines to test 
+%%scale=0.7, marginratio={1:1, 2:3}, ignoreall,% default settings
+%%text={7in,10in},centering,
+%%margin=1.5in,
+%%total={6.5in,8.75in}, top=1.2in, left=0.9in, includefoot,
+%%height=10in,a5paper,hmargin={3cm,0.8in},
+%]{geometry}
+
+\begin{document}
+
+%\preprint{APS/123-QED}
+
+\title{Dexy EinsteinPy Examples}% Force line breaks with \\
+\thanks{EinsteinPy examples based upon EinsteinPy documentation (c) 2020 EinsteinPy Development Team, used under MIT license.}%
+
+\date{\today}% It is always \today, today,
+             %  but any date may be explicitly specified
+
+\begin{abstract}
+    Dexy makes it easy to write reproducible and recreatable documents in any
+    document format, using any combination of programming languages. Dexy
+    integrates prose, code, and data. 
+\begin{description}
+\item[Website]
+https://dexy.it
+\item[Package Source]
+https://github.com/dexy/dexy
+\item[Examples]
+https://github.com/dexy/dexy-examples
+\end{description}
+\end{abstract}
+
+\maketitle
+
+%\tableofcontents
+
+%%% "loading-json"
+<% set snippets = d['snippets.json'].from_json() %>
+%%% @end
+
+\section{\label{sec:level1}Predefined Metrics in Symbolic Module Examples}
+
+The \verb|einsteinpy.symbolic.prefedined| module contains many functions with predefined metrics.
+
+\begin{description}
+<% for k, v in snippets['predefined'].items() %>
+    \item[<< k >>] << v['docs'] >>
+<% endfor %>
+\end{description}
+
+\subsection{\label{sec:level2}Printing the metrics for visualization}
+
+All the functions return instances of \verb|einsteinpy.symbolic.metric.MetricTensor|
+
+Here are four examples:
+
+\subsubsection{\label{sec:level3}Schwarzschild}
+<< d['predefined_metrics.py|idio|l']['Schwarzschild'] >>
+$<< snippets['Schwarzschild'] >>$
+
+\subsubsection{\label{sec:level3}Minkowski}
+<< d['predefined_metrics.py|idio|l']['Minkowski'] >>
+$<< snippets['Minkowski'] >>$
+
+\subsubsection{\label{sec:level3}DeSitter}
+<< d['predefined_metrics.py|idio|l']['DeSitter'] >>
+$<< snippets['DeSitter'] >>$
+
+\subsubsection{\label{sec:level3}AntiDeSitter}
+<< d['predefined_metrics.py|idio|l']['AntiDeSitter'] >>
+$<< snippets['AntiDeSitter'] >>$
+
+\subsection{\label{sec:level2}Calculating the scalar (Ricci) curavtures}
+
+
+They should be constant for De-Sitter:
+$<< snippets['DeSitter-curvature'] >>$
+
+and Anti-De-Sitter spacetimes: \\
+$<< snippets['AntiDeSitter-curvature'] >>$
+
+Which simplifies to $<< snippets['AntiDeSitter-simplified'] >>$.
+
+
+\section{\label{sec:level1}Using Dexy with EinsteinPy}
+
+For a full introduction to \href{http://www.dexy.it/}{Dexy}, please look at the \href{http://www.dexy.it/docs/getting-started.html}{Getting Started Tutorial}.
+
+Dexy runs by applying filters to files. Filters can transform file content in
+arbitrary ways, including executing code and formatting text or data.
+
+Here are some brief introductions to common filters we apply to source code files.
+
+\subsection{\label{sec:level2}pyg \& idio}
+
+The pyg filter applies \href{https://pygments.org/}{pygments syntax highlighting} to source code. At the end of this document you can see the complete \verb|predefined_metrics.py| file with syntax highlighting applied.
+
+The idio filter uses the pygments system as well, but it first divides code up
+into sections using specially formatted comments. This allows you present and
+discuss code in manageable chunks, and also to leave out irrelevant parts
+(perhaps include them in an appendix).
+
+For example, here is just the custom pprint function definition:
+
+<< d['predefined_metrics.py|idio|l']['custom-pprint'] >>
+
+
+\subsection{\label{sec:level2}Running Code}
+
+Next, we probably want to be able to actually run the code and see output it generates.
+
+Depending on what we want to do with the output, we can take a variety of approaches.
+
+\subsubsection{\label{sec:level3}Run With py Filter}
+
+The py filter runs python code in the python compiler and saves just the output.
+
+Here is what gets written to stdout by the \verb|predefined_metrics.py| script (long lines truncated for sanity):
+
+\footnotesize
+\begin{Verbatim}
+<% for line in str(d['predefined_metrics.py|py']).splitlines() %>
+<< line[0:60] >><% endfor %>
+\end{Verbatim}
+
+\subsubsection{\label{sec:level3}Run With pycon Filter}
+
+An alternative, the pycon filter, runs Python more like a console or repl, and
+shows you both the input and output. It's great for tutorials. It also respects
+sections, so you can include just a section at a time.
+
+For example, here is the pycon output of just the Minkowski section (syntax
+highlighting is applied by subsequently passing it throug the pyg filter):
+
+<< d['predefined_metrics.py|idio|pycon|pyg|l']['Minkowski'] >>
+
+\subsubsection{\label{sec:level3}Generating Artifacts}
+
+While including the results of stdout or a REPL-like view can be useful some of
+the time, especially for code documentation/tutorials, for research papers or
+work that's more about results, we probably want to have the code running
+behind the scenes to generate artifacts which we can incorporate into documents
+in a more flexible way. With Dexy, any data files you generate as side effects will be available to your final document, and you can include them flexibly.
+
+For example, here is a \LaTeX\ rendering of the Schwarzschild tensor:
+
+\vspace{5mm}
+
+%%% "using-json"
+$<< snippets['Schwarzschild'] >>$
+%%% @end
+
+\vspace{5mm}
+
+This was generated by saving latex output to a dictionary, and then accessing the desired key from this document:
+
+<< d['example.tex|idio|l']['loading-json'] >>
+<< d['example.tex|idio|l']['using-json'] >>
+
+
+\subsubsection{\label{sec:level3}Full Python Source Code}
+
+\begin{widetext}
+<< d['predefined_metrics.py|pyg|l'] >>
+\end{widetext}
+
+\end{document}
+%
+% ****** End of file apssamp.tex ******

@@ -1,0 +1,14 @@
+inputs:
+    # make sure to touch venv/.nodexy so the directory is ignored
+    - .py|py: # run the code
+        - py: {add-new-files: True}
+    - .py|pyg|l # format for LaTeX
+    - .py|idio # split into sections + format for HTML
+    - .py|idio|l # split into sections + format for LaTeX
+    - .py|idio|pycon|pyg|l # split into sections + capture output
+    - .sh|idio|l # split into sections + format for LaTeX
+    - .tex|idio|l # split into sections + format for LaTeX
+
+example.tex|jinja|xetex:
+    - inputs
+    - .sty
