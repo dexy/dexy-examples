@@ -1,13 +1,21 @@
 inputs:
     # make sure to touch venv/.nodexy so the directory is ignored
     - .py|py: # run the code
-        - py: {add-new-files: True}
+      # TODO need to figure out a way to specify room_id for  matrix filter applied as additional-doc-filter
+      # for now, easiest to forward messages from https://riot.im/app/#/room/#dexy-connection-tests:matrix.org to your room
+      # or subclass the matrix filter class and specify a different default room
+        - py:  {add-new-files: True, additional-doc-filters: {'.pkl' : 'matrix', '.png' : 'matrix'}}
     - .py|pyg|l # format for LaTeX
-    - .py|idio # split into sections + format for HTML
+    - .py|idio: # split into sections + format for HTML
+        - idio: {"style" : "solarized-dark", "noclasses" : True}
     - .py|idio|l # split into sections + format for LaTeX
     - .py|idio|pycon|pyg|l # split into sections + capture output
     - .sh|idio|l # split into sections + format for LaTeX
     - .tex|idio|l # split into sections + format for LaTeX
+
+post.md|jinja|markdown|matrix:
+    - inputs
+    - matrix: { 'room_id' : '!yMPKbtdRlqJWpwCcvg:matrix.org' }
 
 example.tex|jinja|xetex:
     - inputs
