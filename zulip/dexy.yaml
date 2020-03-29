@@ -1,0 +1,7 @@
+post.md|jinja|zulip:
+    - dirty: True # makes this get processed every time even if nothing changed
+    - zulip: {"stream" : "Dexy", "topic" : "automation"}
+    - code.py|pyg4md
+    - code.py|py|pyg4md:
+        - py: {add-new-files: True, additional-doc-filters: {'.png' : 'zulip'}}
+    - code.py|pycon|pyg4md
