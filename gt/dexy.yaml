@@ -1,0 +1,3 @@
+example.md|markdown|pandoc:
+    - pandoc: {"output-ext" : ".pdf"}
+    - gt-demo.R|r
